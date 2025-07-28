@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Scoreboard Panel</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <h1>ADMIN</h1>
+  <div id="admin-controls">
+    <!-- Game setup form -->
+    <input type="text" id="teamA" placeholder="Team A">
+    <input type="text" id="teamB" placeholder="Team B">
+    <input type="password" id="adminPassword" placeholder="Set Admin Password">
+    <button onclick="createNewGame()">Create Game</button>
+
+    <!-- Admin Controls Appear After Game Creation -->
+    <div id="controls" style="display:none">
+      <h3 id="gameCodeDisplay"></h3>
+      <p>Use this code for viewers and admin login</p>
+
+      <div class="score-controls">
+        <h4 id="scoreA">0</h4>
+        <button onclick="addPoints('A', 1)">+1</button>
+        <button onclick="addPoints('A', 2)">+2</button>
+        <button onclick="addPoints('A', 3)">+3</button>
+
+        <h4 id="scoreB">0</h4>
+        <button onclick="addPoints('B', 1)">+1</button>
+        <button onclick="addPoints('B', 2)">+2</button>
+        <button onclick="addPoints('B', 3)">+3</button>
+      </div>
+
+      <button onclick="togglePossession()">Change Possession</button>
+      <button onclick="resetGame()">Reset Game</button>
+    </div>
+  </div>
+
+  <script src="scripts/storage.js"></script>
+  <script src="scripts/admin.js"></script>
+</body>
+</html>

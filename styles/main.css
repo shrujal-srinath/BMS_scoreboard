@@ -1,0 +1,24 @@
+body {
+  background: black;
+  color: white;
+  font-family: monospace;
+  text-align: center;
+}
+
+.login-container {
+  margin-top: 50px;
+}
+
+#scoreboard {
+  display: flex;
+  justify-content: space-between;
+  font-size: 2.4em;
+  margin: 60px auto;
+  width: 85%;
+}
+
+.possession {
+  font-size: 3em;
+  color: yellow;
+  align-self: center;
+}
