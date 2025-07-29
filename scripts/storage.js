@@ -1,8 +1,10 @@
-function saveGameState(code, obj) {
-  localStorage.setItem(`game-${code}`, JSON.stringify(obj));
+// Save state to localStorage
+function saveGameState(code, data) {
+  localStorage.setItem('game-' + code, JSON.stringify(data));
+  window.dispatchEvent(new Event('storage')); // force update in single-tab
 }
-
+// Load state from localStorage
 function loadGameState(code) {
-  const data = localStorage.getItem(`game-${code}`);
-  return data ? JSON.parse(data) : null;
+  const d = localStorage.getItem('game-' + code);
+  return d ? JSON.parse(d) : null;
 }

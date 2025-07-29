@@ -1,16 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Basketball Scoreboard</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <h1>BASKETBALL LIVE SCORING</h1>
-  <div class="login-container">
-    <h2>Select Role</h2>
-    <button onclick="window.location.href='admin.html'">Host Game (Admin)</button>
-    <button onclick="window.location.href='viewer.html'">Watch Game</button>
+  <div class="centered">
+    <h1>Basketball Scoreboard</h1>
+    <p class="subtitle">Enter game code to watch, or admin credentials to host/control</p>
+
+    <div class="panel">
+      <h2>Watch Game</h2>
+      <form id="viewerForm">
+        <label for="viewerCode">6-digit Game Code</label>
+        <input type="text" id="viewerCode" maxlength="6" pattern="\d{6}" required autocomplete="off" />
+        <button type="submit" class="cta">Join Game</button>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h2>Host Game (Admin)</h2>
+      <form id="adminForm">
+        <div class="row">
+          <div>
+            <label for="adminGameCode">Game Code</label>
+            <input type="text" id="adminGameCode" placeholder="Leave blank for new game" maxlength="6" autocomplete="off">
+          </div>
+          <div>
+            <label for="adminPassword">Password</label>
+            <input type="password" id="adminPassword" required>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="adminLoginBtn" class="secondary" type="submit">Login to Existing</button>
+          <button id="adminCreateBtn" class="cta" type="button">Create New Game</button>
+        </div>
+      </form>
+    </div>
   </div>
+
+  <script>
+    // Landing page logic for navigation
+    document.getElementById('viewerForm').onsubmit = e => {
+      e.preventDefault();
+      const code = document.getElementById('viewerCode').value.trim();
+      window.location.href = `viewer.html?code=${code}`;
+    };
+
+    document.getElementById('adminForm').onsubmit = e => {
+      e.preventDefault();
+      // User clicks 'Login to Existing'
+      const code = document.getElementById('adminGameCode').value.trim();
+      const pwd = document.getElementById('adminPassword').value;
+      if (!code || !pwd) return alert('Both code and password required.');
+      window.location.href = `admin.html?code=${code}&pwd=${encodeURIComponent(pwd)}`;
+    };
+    document.getElementById('adminCreateBtn').onclick = () => {
+      const pwd = document.getElementById('adminPassword').value;
+      if (!pwd) return alert('Please set a password for the new game.');
+      window.location.href = `admin.html?newgame=1&pwd=${encodeURIComponent(pwd)}`;
+    };
+  </script>
 </body>
 </html>

@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Live Game Viewer</title>
+  <title>Basketball Scoreboard - Live Viewer</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <h1>🏀 LIVE SCOREBOARD</h1>
-  <div id="scoreboard">
-    <div>
-      <h2 id="nameA">Team A</h2>
-      <h1 id="scoreA">0</h1>
-    </div>
-    <div class="possession" id="possArrow">←</div>
-    <div>
-      <h2 id="nameB">Team B</h2>
-      <h1 id="scoreB">0</h1>
+  <div class="centered">
+    <div id="scoreboard" class="panel scoreboard-led">
+      <div class="row">
+        <div>
+          <div class="leder team" id="nameA">HOME</div>
+          <div class="score-led" id="scoreA">0</div>
+        </div>
+        <div style="align-self:center;">
+          <span class="poss-arrow" id="possArrow">———&gt;</span>
+        </div>
+        <div>
+          <div class="leder team" id="nameB">GUEST</div>
+          <div class="score-led" id="scoreB">0</div>
+        </div>
+      </div>
+      <div class="row" style="justify-content: center; margin-top: 24px;">
+        <span class="clock-led" id="gameClock">10:00</span>
+        &nbsp;|&nbsp;
+        <span class="clock-led" id="shotClock" style="color:#5ffe6c;">24</span>
+      </div>
+      <div class="row stats">
+        <span>Fouls: <span id="foulsA">0</span></span>
+        <span>Timeouts: <span id="tosA">3</span></span>
+        <h3 id="period" style="flex:1;">1st</h3>
+        <span>Fouls: <span id="foulsB">0</span></span>
+        <span>Timeouts: <span id="tosB">3</span></span>
+      </div>
     </div>
   </div>
   <script src="scripts/storage.js"></script>

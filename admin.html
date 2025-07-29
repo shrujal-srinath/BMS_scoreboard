@@ -1,38 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Scoreboard Panel</title>
+  <title>Admin Control Panel | Basketball Scoreboard</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <h1>ADMIN</h1>
-  <div id="admin-controls">
-    <!-- Game setup form -->
-    <input type="text" id="teamA" placeholder="Team A">
-    <input type="text" id="teamB" placeholder="Team B">
-    <input type="password" id="adminPassword" placeholder="Set Admin Password">
-    <button onclick="createNewGame()">Create Game</button>
-
-    <!-- Admin Controls Appear After Game Creation -->
-    <div id="controls" style="display:none">
-      <h3 id="gameCodeDisplay"></h3>
-      <p>Use this code for viewers and admin login</p>
-
-      <div class="score-controls">
-        <h4 id="scoreA">0</h4>
-        <button onclick="addPoints('A', 1)">+1</button>
-        <button onclick="addPoints('A', 2)">+2</button>
-        <button onclick="addPoints('A', 3)">+3</button>
-
-        <h4 id="scoreB">0</h4>
-        <button onclick="addPoints('B', 1)">+1</button>
-        <button onclick="addPoints('B', 2)">+2</button>
-        <button onclick="addPoints('B', 3)">+3</button>
+  <div class="centered">
+    <h1>Admin Panel</h1>
+    <div id="adminPanel" class="panel">
+      <div class="row">
+        <div>
+          <label>Game Code:</label>
+          <span id="gameCodeDisplay">------</span>
+        </div>
+        <button id="resetBtn" class="danger" style="margin-left:auto;">Reset Game</button>
       </div>
-
-      <button onclick="togglePossession()">Change Possession</button>
-      <button onclick="resetGame()">Reset Game</button>
+      <hr>
+      <h3>Teams</h3>
+      <div class="row">
+        <input id="teamA" placeholder="Team A" maxlength="16" autocomplete="off">
+        <input id="teamB" placeholder="Team B" maxlength="16" autocomplete="off">
+        <button onclick="updateTeamNames()">Save Names</button>
+      </div>
+      <div class="row scores">
+        <div>
+          <div><span id="nameA">HOME</span></div>
+          <div class="score-led" id="scoreA">0</div>
+          <button onclick="incScore('A',1)">+1</button>
+          <button onclick="incScore('A',2)">+2</button>
+          <button onclick="incScore('A',3)">+3</button>
+        </div>
+        <div style="align-self: center;"><span class="poss-arrow" id="possArrow">———&gt;</span><br/><button onclick="togglePossession()">Toggle</button></div>
+        <div>
+          <div><span id="nameB">GUEST</span></div>
+          <div class="score-led" id="scoreB">0</div>
+          <button onclick="incScore('B',1)">+1</button>
+          <button onclick="incScore('B',2)">+2</button>
+          <button onclick="incScore('B',3)">+3</button>
+        </div>
+      </div>
+      <hr>
+      <h3>Game/Shot Clocks</h3>
+      <div class="row clocks">
+        <div>
+          <label>Game Clock:</label>
+          <span id="gameClock" class="clock-led">10:00</span>
+          <button onclick="toggleGameClock()">Start/Stop</button>
+          <button onclick="openEditTime('game')">Edit</button>
+        </div>
+        <div>
+          <label>Shot Clock:</label>
+          <span id="shotClock" class="clock-led" style="color:#5ffe6c;">24</span>
+          <button onclick="toggleShotClock()">Start/Stop</button>
+          <button onclick="openEditTime('shot')">Edit</button>
+          <button onclick="resetShotClock()">Reset</button>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div>
+          <label>Fouls</label>
+          <input type="number" id="foulsA" value="0" min="0" max="9" onchange="setFouls('A')">
+          <label>Timeouts</label>
+          <input type="number" id="tosA" value="3" min="0" max="9" onchange="setTimeouts('A')">
+        </div>
+        <div>
+          <label>Period</label>
+          <select id="period" onchange="setPeriod()">
+            <option>1st</option><option>2nd</option><option>3rd</option><option>4th</option><option>OT</option>
+          </select>
+        </div>
+        <div>
+          <label>Fouls</label>
+          <input type="number" id="foulsB" value="0" min="0" max="9" onchange="setFouls('B')">
+          <label>Timeouts</label>
+          <input type="number" id="tosB" value="3" min="0" max="9" onchange="setTimeouts('B')">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal for Editing Times -->
+  <div id="editTimeModal" class="modal hidden">
+    <div class="modal-content">
+      <h3 id="editTimeTitle">Edit Clock</h3>
+      <input type="text" id="editTimeInput" placeholder="mm:ss or ss" maxlength="5" />
+      <input type="password" id="editTimePwd" placeholder="Enter Admin Password" />
+      <div class="modal-actions">
+        <button class="cta" onclick="applyEditTime()">Apply</button>
+        <button class="secondary" onclick="closeEditTime()">Cancel</button>
+      </div>
+      <p id="editTimeError" class="error hidden">Invalid input or password.</p>
     </div>
   </div>
 
